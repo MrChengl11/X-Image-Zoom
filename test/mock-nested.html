@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mock nested-dialog photo viewer</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; background: #000; color: #e7e9ea; font-family: system-ui, sans-serif; }
+    #overlay { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.92); }
+    #nested-dialog { width: 500px; height: 800px; display: flex; align-items: center; justify-content: center; background: #111; border-radius: 12px; }
+    #nested-img { display: block; width: 440px; height: 700px; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <!-- A small role=dialog nested inside a full-screen fixed overlay. The
+       viewer detection must keep walking to the full-screen ancestor. -->
+  <div id="overlay">
+    <div id="nested-dialog" role="dialog" aria-label="Photo">
+      <img id="nested-img" alt="Image" src="https://pbs.twimg.com/media/mock-nested.svg">
+    </div>
+  </div>
+</body>
+</html>

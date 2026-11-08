@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mock classic X photo viewer</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; background: #000; color: #e7e9ea; font-family: system-ui, sans-serif; }
+    #classic-viewer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.92); }
+    [data-testid="swipe-to-dismiss"] { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    #classic-media { position: relative; width: 900px; height: 600px; max-width: 78vw; max-height: 78vh; }
+    #classic-clip { position: relative; width: 100%; height: 100%; overflow: hidden; }
+    #classic-image-root { position: absolute; inset: 0; overflow: hidden; transform: translateZ(0); }
+    #classic-close { position: absolute; top: 16px; right: 20px; z-index: 2; width: 40px; height: 40px; border: 0; border-radius: 999px; background: rgba(0, 0, 0, 0.6); color: #fff; font-size: 24px; line-height: 1; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div id="classic-viewer" role="dialog" aria-modal="true" aria-label="Photo">
+    <div data-testid="swipe-to-dismiss">
+      <div id="classic-media">
+        <div id="classic-clip">
+          <div id="classic-image-root">
+            <!-- Classic X paints the visible photo here; the <img> stays opacity:0. -->
+            <div id="classic-surface" style="position:absolute;inset:0;z-index:-1;background-image:url('https://pbs.twimg.com/media/mock.svg');background-position:center;background-repeat:no-repeat;background-size:contain"></div>
+            <img id="classic-img" alt="Image" src="https://pbs.twimg.com/media/mock.svg" style="position:absolute;inset:0;width:100%;height:100%;opacity:0;z-index:-1;pointer-events:none">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- A second carousel slide stays mounted off-screen in X. -->
+    <div
+      data-testid="swipe-to-dismiss"
+      id="classic-offscreen"
+      style="transform:translateX(110%)"
+    >
+      <div
+        id="classic-offscreen-surface"
+        style="position:absolute;inset:0;background-image:url('https://pbs.twimg.com/media/mock-offscreen.svg');background-position:center;background-repeat:no-repeat;background-size:contain"
+      ></div>
+    </div>
+
+    <button id="classic-close" aria-label="Close">×</button>
+  </div>
+  <script>
+    const viewer = document.getElementById('classic-viewer');
+    document.getElementById('classic-close').addEventListener('click', () => {
+      viewer.hidden = true;
+    });
+    new MutationObserver(() => {
+      document.body.style.overflow = viewer.hidden ? '' : 'hidden';
+    }).observe(viewer, { attributes: true, attributeFilter: ['hidden'] });
+    document.body.style.overflow = 'hidden';
+  </script>
+</body>
+</html>

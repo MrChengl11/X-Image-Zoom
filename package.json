@@ -1,0 +1,13 @@
+{
+  "name": "x-pic-zoom",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Edge extension that wheel-zooms photos in the X/Twitter image viewer.",
+  "type": "module",
+  "scripts": {
+    "test": "node test/e2e.mjs"
+  },
+  "devDependencies": {
+    "playwright-core": "^1.55.0"
+  }
+}

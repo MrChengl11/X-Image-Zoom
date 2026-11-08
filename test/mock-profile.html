@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mock x-web profile photo viewer</title>
+  <style>
+    :root { color-scheme: dark; }
+    html, body { margin: 0; background: #000; }
+    #profile-viewer { position: fixed; inset: 0; z-index: 100; display: flex; align-items: center; justify-content: center; background: rgba(0, 0, 0, 0.92); }
+    #profile-photo { display: block; width: 900px; height: 600px; max-width: 78vw; max-height: 78vh; object-fit: cover; }
+  </style>
+</head>
+<body>
+  <!-- x-web's /<user>/photo viewer already implements wheel zoom itself. -->
+  <div id="profile-viewer" role="dialog" aria-label="Profile photo">
+    <img id="profile-photo" alt="Profile photo" src="https://pbs.twimg.com/media/mock.svg">
+  </div>
+  <script>
+    window.__nativeWheel = 0;
+    window.addEventListener(
+      'wheel',
+      (event) => {
+        if (event.target && event.target.id === 'profile-photo') {
+          window.__nativeWheel += 1;
+        }
+      },
+      { passive: true }
+    );
+  </script>
+</body>
+</html>
